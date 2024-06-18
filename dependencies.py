@@ -12,14 +12,14 @@ async def get_db() -> AsyncSession:
             await db.close()
 
 
-async def common_db(db: AsyncSession = Depends(get_db)):
+async def common_db(db: AsyncSession = Depends(get_db)) -> AsyncSession:
     return db
 
 
 async def common_limitation(
     skip: int = Query(0, description="Number of items to skip"),
     limit: int = Query(10, description="Maximum number of items to retrieve"),
-):
+) -> dict[str, int]:
     return {"skip": skip, "limit": limit}
 
 CommonDB = Annotated[AsyncSession, Depends(common_db)]

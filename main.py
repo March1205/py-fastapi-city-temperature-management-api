@@ -10,11 +10,11 @@ app.include_router(temperature_router.router, prefix="/temperature", tags=["temp
 
 
 @app.on_event("startup")
-async def startup():
+async def startup() -> None:
     await database.connect()
     await init_db()
 
 
 @app.on_event("shutdown")
-async def shutdown():
+async def shutdown() -> None:
     await database.disconnect()
